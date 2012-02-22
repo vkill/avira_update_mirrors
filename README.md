@@ -1,6 +1,6 @@
 # AviraUpdateMirrors
 
-Mirror avira update
+ Avira update mirrors
 
 ## Installation
 
@@ -38,5 +38,7 @@ see your update log, like this
     16:43:57 [UPD] [INFO]       Downloading of 'http://119.97.137.178/update/idx/scanner-win32-int.info.gz' to 'xx'.
 
 "http://119.97.137.178/update" is your update_servers
+
 "idx/master.idx" is your idx_master
+
 "idx/wks_avira12-win32-en-pecl.idx" and more is your idxes
