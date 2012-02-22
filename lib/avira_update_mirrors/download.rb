@@ -9,7 +9,7 @@ module AviraUpdateMirrors
     def initialize(base_url, options = {})
       @base_url = base_url
       @base_dir = options[:base_dir] || Dir.pwd
-      @downloads_dir = File.join(@base_dir, 'tmp', Digest::MD5.hexdigest(Time.now.to_s << rand().to_s))
+      @downloads_dir = File.join(@base_dir, 'tmp', Time.now.strftime("%Y%m%d%H%M%S%L"))
       FileUtils.mkdir_p @downloads_dir
       @error = nil
       @download_file_path = nil
@@ -18,11 +18,12 @@ module AviraUpdateMirrors
     end
 
     def perform(expand_url)
+      @expand_url = expand_url.gsub("\\", "/")
       @error = nil
-      @download_file_path = File.join(@downloads_dir, expand_url)
+      @download_file_path = File.join(@downloads_dir, @expand_url)
       FileUtils.mkdir_p File.dirname(@download_file_path)
       begin
-        @response = self.class.get(expand_url)
+        @response = self.class.get(@expand_url)
       rescue Timeout::Error
         @error = 'timeout'
       else

@@ -5,7 +5,7 @@ module AviraUpdateMirrors
   ).new(
     'wwwroot',
     [
-      "v12zhcn" => {
+      "v12f_zhcn" => {
         "update_servers" => %w`
           http://80.190.143.227/update
         `,

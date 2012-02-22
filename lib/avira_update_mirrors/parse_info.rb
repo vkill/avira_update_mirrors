@@ -9,23 +9,23 @@ module AviraUpdateMirrors
       @files = {}
       @need_download_files = {}
       
-      generate_files_list
-      check_files_md5
     end
 
-    def generate_files_list
+    def generate_files_list(&block)
       Dir[File.join(@downloads_dir, "**", "*.info.gz")].each do |info_gz|
+        yield "  reading and parsing #{info_gz}"
         parse_xml(read_gz(info_gz))
       end
     end
 
-    def check_files_md5
+    def check_files_md5(&block)
+      yield "  checking #{@files.size} files md5"
       @files.each do |fname, fzipmd5|
         fpath = File.join(@wwwroot_dir, fname)
         unless File.exist?(fpath)
           @need_download_files[fname] = fzipmd5
         else
-          unless Digest::MD5.file(fpath) == md5.downcase
+          unless Digest::MD5.file(fpath) == fzipmd5.downcase
             @need_download_files[fname] = fzipmd5
           end
         end
