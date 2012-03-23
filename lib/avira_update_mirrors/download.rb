@@ -2,6 +2,8 @@ module AviraUpdateMirrors
   class Download
 
     include HTTParty
+    # http_proxy 'PROXY_IP', PROXY_PORT
+    # default_timeout 60
     default_timeout 10
 
     attr_reader :error, :response, :downloads_dir, :download_file_path
